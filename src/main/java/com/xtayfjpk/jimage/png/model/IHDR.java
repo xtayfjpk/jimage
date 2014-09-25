@@ -68,83 +68,92 @@ public class IHDR extends Chunk {
 		if(getLength()==UNINIT_VALUE) {
 			throw new RuntimeException("数据长度值未初始化");
 		}
+		int length = 0;
 		try {
-			readWidth(input);
-			readHeight(input);
-			readBitWidth(input);
-			readColorType(input);
-			readCompressionMethod(input);
-			readFilterMethod(input);
-			readInterlaceMethod(input);
-			readCrc(input);
+			length += readWidth(input);
+			length += readHeight(input);
+			length += readBitWidth(input);
+			length += readColorType(input);
+			length += readCompressionMethod(input);
+			length += readFilterMethod(input);
+			length += readInterlaceMethod(input);
+			length += readCrc(input);
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new RuntimeException(e);
 		}
-		return 0;
+		return length;
 	}
 
-	private void readWidth(InputStream input) throws IOException {
+	private int readWidth(InputStream input) throws IOException {
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input);
 		if(readResult.getLength()!=4) {
 			throw new RuntimeException("数据读取错误");
 		}
 		this.width = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readHeight(InputStream input) throws IOException {
+	private int readHeight(InputStream input) throws IOException {
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input);
 		if(readResult.getLength()!=4) {
 			throw new RuntimeException("数据读取错误");
 		}
 		this.height = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readBitWidth(InputStream input) throws IOException {
+	private int readBitWidth(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
-		this.bitWidth = readResult.getResult();		
+		this.bitWidth = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readColorType(InputStream input) throws IOException {
+	private int readColorType(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
 		this.colorType = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readCompressionMethod(InputStream input) throws IOException {
+	private int readCompressionMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
 		this.compressionMethod = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readFilterMethod(InputStream input) throws IOException {
+	private int readFilterMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
 		this.filterMethod = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readInterlaceMethod(InputStream input) throws IOException {
+	private int readInterlaceMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
-		this.interlaceMethod = readResult.getResult();		
+		this.interlaceMethod = readResult.getResult();
+		return readResult.getLength();
 	}
-	private void readCrc(InputStream input) throws IOException {
+	private int readCrc(InputStream input) throws IOException {
 		final int len = 4;
 		ReadResult<byte[]> readResult = InputStreamUtils.read(input, len);
 		if(readResult.getLength()!=len) {
 			throw new RuntimeException("数据读取错误");
 		}
-		this.setCrc(readResult.getResult());		
+		this.setCrc(readResult.getResult());
+		return readResult.getLength();
 	}
 	
 
