@@ -78,4 +78,5 @@ uploadArchives {
 dependencies {
 	compile 'junit:junit:4.11'
 	compile 'com.jcraft:jzlib:1.1.2'
+	compile "log4j:log4j:1.2.17"
 }
