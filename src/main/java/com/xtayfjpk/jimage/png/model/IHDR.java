@@ -136,6 +136,9 @@ public class IHDR extends Chunk {
 		return readResult.getLength();
 	}
 	
+	public int getDataLengthAfterInflate() {
+		return ((width-1)*3 + 4) * height;
+	}
 	
 
 	public int getWidth() {
