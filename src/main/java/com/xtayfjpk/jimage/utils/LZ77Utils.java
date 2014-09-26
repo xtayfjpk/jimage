@@ -10,7 +10,7 @@ import com.jcraft.jzlib.ZStream;
 public class LZ77Utils {
 	private static final Logger LOGGER = Logger.getLogger(LZ77Utils.class);
 	
-	public byte[] inflate(byte[] sources, int outlen) {
+	public static byte[] inflate(byte[] sources, int outlen) {
 		byte[] out = new byte[outlen];
 		int err;
 		Inflater inflater = new Inflater();
