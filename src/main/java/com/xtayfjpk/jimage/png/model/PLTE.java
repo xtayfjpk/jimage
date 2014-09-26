@@ -67,4 +67,8 @@ public class PLTE extends Chunk {
 	public boolean removePixel(Pixel pixel) {
 		return this.pixels.remove(pixel);
 	}
+	
+	public int getColorCount() {
+		return getLength() / 3;
+	}
 }
