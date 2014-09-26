@@ -1,8 +1,5 @@
 package com.xtayfjpk.jimage.png.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -57,19 +54,6 @@ public abstract class Chunk {
 	
 	public abstract int doRead(InputStream input) throws IOException;
 	
-	/**
-	 * 读取一个文件
-	 * @param png
-	 * @return
-	 */
-	public int read(File png) {
-		try {
-			return read(new FileInputStream(png));
-		} catch (FileNotFoundException e) {
-			LOGGER.error(e.getMessage(), e);
-		}
-		throw new RuntimeException(String.format("PNG image file[%s] does not exists.", png.getAbsoluteFile()));
-	}
 	
 	/**
 	 * 读取CRC冗余校验码
