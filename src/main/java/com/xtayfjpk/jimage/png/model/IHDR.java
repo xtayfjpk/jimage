@@ -3,8 +3,6 @@ package com.xtayfjpk.jimage.png.model;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
-
 import com.xtayfjpk.jimage.utils.InputStreamUtils;
 import com.xtayfjpk.jimage.utils.ReadResult;
 
@@ -14,7 +12,6 @@ import com.xtayfjpk.jimage.utils.ReadResult;
  *
  */
 public class IHDR extends Chunk {
-	private static final Logger LOGGER = Logger.getLogger(IHDR.class);
 	/**
 	 * 图像宽度，以像素为单位，占4个字节
 	 */
@@ -64,24 +61,16 @@ public class IHDR extends Chunk {
 	
 
 	@Override
-	public int read(InputStream input) {
-		if(getLength()==UNINIT_VALUE) {
-			throw new RuntimeException("数据长度值未初始化");
-		}
+	public int doRead(InputStream input) throws IOException {
 		int length = 0;
-		try {
-			length += readWidth(input);
-			length += readHeight(input);
-			length += readBitWidth(input);
-			length += readColorType(input);
-			length += readCompressionMethod(input);
-			length += readFilterMethod(input);
-			length += readInterlaceMethod(input);
-			length += readCrc(input);
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage(), e);
-			throw new RuntimeException(e);
-		}
+		length += readWidth(input);
+		length += readHeight(input);
+		length += readBitWidth(input);
+		length += readColorType(input);
+		length += readCompressionMethod(input);
+		length += readFilterMethod(input);
+		length += readInterlaceMethod(input);
+		length += readCrc(input);
 		return length;
 	}
 

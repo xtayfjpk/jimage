@@ -34,7 +34,24 @@ public abstract class Chunk {
 	private ChunkType chunkType;
 	
 	
-	public abstract int read(InputStream input);
+	public int read(InputStream input) {
+		if(getLength()==UNINIT_VALUE) {
+			throw new RuntimeException("数据长度值未初始化");
+		}
+		int length = 0;
+		try {
+			length = doRead(input);
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		}
+		if(length!=getLength()) {
+			throw new RuntimeException("数据真实读取长度与数据实际长度不一至");
+		}
+		return length;
+	}
+	
+	public abstract int doRead(InputStream input) throws IOException;
 	
 	public int read(File png) {
 		try {

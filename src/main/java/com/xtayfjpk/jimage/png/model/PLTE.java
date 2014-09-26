@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import com.xtayfjpk.jimage.utils.InputStreamUtils;
 import com.xtayfjpk.jimage.utils.ReadResult;
 
@@ -17,7 +15,6 @@ import com.xtayfjpk.jimage.utils.ReadResult;
  *
  */
 public class PLTE extends Chunk {
-	private static final Logger LOGGER = Logger.getLogger(PLTE.class);
 	private List<Pixel> pixels = new ArrayList<Pixel>();
 	
 	public PLTE() {
@@ -27,21 +24,13 @@ public class PLTE extends Chunk {
 	}
 
 	@Override
-	public int read(InputStream input) {
-		if(getLength()==UNINIT_VALUE) {
-			throw new RuntimeException("数据长度值未初始化");
-		}
+	public int doRead(InputStream input) throws IOException {
 		int pixels = this.getLength()/3;
 		int length = 0;
-		try {
-			for(int i=0; i<pixels; i++) {
-				length += readPixel(input);
-			}
-			length += this.readCrc(input);
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage(), e);
-			throw new RuntimeException(e);
+		for(int i=0; i<pixels; i++) {
+			length += readPixel(input);
 		}
+		length += this.readCrc(input);
 		return length;
 	}
 	
