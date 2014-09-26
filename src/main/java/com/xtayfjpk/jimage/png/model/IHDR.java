@@ -74,6 +74,12 @@ public class IHDR extends Chunk {
 		return length;
 	}
 
+	/**
+	 * 读取图像宽度
+	 * @param input 输入流
+	 * @return 图像宽度
+	 * @throws IOException
+	 */
 	private int readWidth(InputStream input) throws IOException {
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input);
 		if(readResult.getLength()!=4) {
@@ -82,6 +88,13 @@ public class IHDR extends Chunk {
 		this.width = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取图像高度
+	 * @param input 输入流
+	 * @return 图像高度
+	 * @throws IOException
+	 */
 	private int readHeight(InputStream input) throws IOException {
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input);
 		if(readResult.getLength()!=4) {
@@ -90,6 +103,13 @@ public class IHDR extends Chunk {
 		this.height = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取图像深度
+	 * @param input 输入流
+	 * @return 图像深度
+	 * @throws IOException
+	 */
 	private int readBitWidth(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
@@ -99,6 +119,13 @@ public class IHDR extends Chunk {
 		this.bitWidth = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取颜色类型
+	 * @param input 输入流
+	 * @return 颜色类型
+	 * @throws IOException
+	 */
 	private int readColorType(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
@@ -108,6 +135,13 @@ public class IHDR extends Chunk {
 		this.colorType = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取压缩方法
+	 * @param input 输入流
+	 * @return 压缩方法
+	 * @throws IOException
+	 */
 	private int readCompressionMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
@@ -117,6 +151,13 @@ public class IHDR extends Chunk {
 		this.compressionMethod = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取滤波器方法
+	 * @param input 输入流
+	 * @return 滤波器方法
+	 * @throws IOException
+	 */
 	private int readFilterMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
@@ -126,6 +167,13 @@ public class IHDR extends Chunk {
 		this.filterMethod = readResult.getResult();
 		return readResult.getLength();
 	}
+	
+	/**
+	 * 读取隔行扫描方法
+	 * @param input 输入流
+	 * @return 隔行扫描方法
+	 * @throws IOException
+	 */
 	private int readInterlaceMethod(InputStream input) throws IOException {
 		final int len = 1;
 		ReadResult<Integer> readResult = InputStreamUtils.readInteger(input, len);
@@ -136,6 +184,10 @@ public class IHDR extends Chunk {
 		return readResult.getLength();
 	}
 	
+	/**
+	 * 获取数据解压缩后的长度
+	 * @return
+	 */
 	public int getDataLengthAfterInflate() {
 		return ((width-1)*3 + 4) * height;
 	}
