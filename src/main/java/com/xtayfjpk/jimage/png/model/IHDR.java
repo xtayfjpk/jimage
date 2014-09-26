@@ -146,15 +146,7 @@ public class IHDR extends Chunk {
 		this.interlaceMethod = readResult.getResult();
 		return readResult.getLength();
 	}
-	private int readCrc(InputStream input) throws IOException {
-		final int len = 4;
-		ReadResult<byte[]> readResult = InputStreamUtils.read(input, len);
-		if(readResult.getLength()!=len) {
-			throw new RuntimeException("数据读取错误");
-		}
-		this.setCrc(readResult.getResult());
-		return readResult.getLength();
-	}
+	
 	
 
 	public int getWidth() {

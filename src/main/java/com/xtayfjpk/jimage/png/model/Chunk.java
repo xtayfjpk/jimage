@@ -3,9 +3,13 @@ package com.xtayfjpk.jimage.png.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.log4j.Logger;
+
+import com.xtayfjpk.jimage.utils.InputStreamUtils;
+import com.xtayfjpk.jimage.utils.ReadResult;
 
 /**
  * PNG图像数据块基类
@@ -41,6 +45,16 @@ public abstract class Chunk {
 		throw new RuntimeException(String.format("PNG image file[%s] does not exists.", png.getAbsoluteFile()));
 	}
 	
+	
+	public int readCrc(InputStream input) throws IOException {
+		final int len = 4;
+		ReadResult<byte[]> readResult = InputStreamUtils.read(input, len);
+		if(readResult.getLength()!=len) {
+			throw new RuntimeException("数据读取错误");
+		}
+		this.setCrc(readResult.getResult());
+		return readResult.getLength();
+	}
 	
 	public int getLength() {
 		return length;
