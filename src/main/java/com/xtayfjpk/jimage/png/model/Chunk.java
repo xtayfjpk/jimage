@@ -19,7 +19,7 @@ import com.xtayfjpk.jimage.utils.ReadResult;
 public abstract class Chunk {
 	private static final Logger LOGGER = Logger.getLogger(Chunk.class);
 	public static final int UNINIT_VALUE = -1;
-	/** 数据长度 **/
+	/** 数据长度 , 不包括CRC冗余校验码4个字节**/
 	private int length;
 	/** 类型码 **/
 	private String typeCode;
