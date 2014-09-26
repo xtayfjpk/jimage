@@ -33,7 +33,11 @@ public abstract class Chunk {
 	private boolean multiple = false;
 	private ChunkType chunkType;
 	
-	
+	/**
+	 * 读取输入流
+	 * @param input
+	 * @return
+	 */
 	public int read(InputStream input) {
 		if(getLength()==UNINIT_VALUE) {
 			throw new RuntimeException("数据长度值未初始化");
@@ -53,6 +57,11 @@ public abstract class Chunk {
 	
 	public abstract int doRead(InputStream input) throws IOException;
 	
+	/**
+	 * 读取一个文件
+	 * @param png
+	 * @return
+	 */
 	public int read(File png) {
 		try {
 			return read(new FileInputStream(png));
@@ -62,7 +71,12 @@ public abstract class Chunk {
 		throw new RuntimeException(String.format("PNG image file[%s] does not exists.", png.getAbsoluteFile()));
 	}
 	
-	
+	/**
+	 * 读取CRC冗余校验码
+	 * @param input 输入流
+	 * @return 真实读取字节数
+	 * @throws IOException
+	 */
 	public int readCrc(InputStream input) throws IOException {
 		final int len = 4;
 		ReadResult<byte[]> readResult = InputStreamUtils.read(input, len);
@@ -71,6 +85,21 @@ public abstract class Chunk {
 		}
 		this.setCrc(readResult.getResult());
 		return readResult.getLength();
+	}
+	
+	/**
+	 * 读取整个块数据
+	 * @param input 输入流
+	 * @return 读取结果
+	 * @throws IOException
+	 */
+	public ReadResult<byte[]> readData(InputStream input) throws IOException {
+		ReadResult<byte[]> readResult = InputStreamUtils.read(input, getLength());
+		if(readResult.getLength()!=getLength()) {
+			throw new RuntimeException("数据读取错误");
+		}
+		this.setData(readResult.getResult());
+		return readResult;
 	}
 	
 	public int getLength() {
