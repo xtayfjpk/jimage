@@ -30,7 +30,6 @@ public class PLTE extends Chunk {
 		for(int i=0; i<pixels; i++) {
 			length += readPixel(input);
 		}
-		this.readCrc(input);
 		return length;
 	}
 	

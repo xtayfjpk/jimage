@@ -26,7 +26,6 @@ public class PHYS extends Chunk {
 		lenght += readPixelPerUnitX(input);
 		lenght += readPixelPerUnitY(input);
 		lenght += readPixelUnit(input);
-		readCrc(input);
 		return lenght;
 	}
 

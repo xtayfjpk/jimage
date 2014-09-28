@@ -70,7 +70,6 @@ public class IHDR extends Chunk {
 		length += readCompressionMethod(input);
 		length += readFilterMethod(input);
 		length += readInterlaceMethod(input);
-		readCrc(input);
 		return length;
 	}
 

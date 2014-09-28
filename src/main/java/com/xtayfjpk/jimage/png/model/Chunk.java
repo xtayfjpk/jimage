@@ -42,6 +42,7 @@ public abstract class Chunk {
 		int length = 0;
 		try {
 			length = doRead(input);
+			readCrc(input);
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new RuntimeException(e);

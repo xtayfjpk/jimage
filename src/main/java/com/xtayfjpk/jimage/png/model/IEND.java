@@ -13,7 +13,6 @@ public class IEND extends Chunk {
 
 	@Override
 	public int doRead(InputStream input) throws IOException {
-		readCrc(input);
 		return 0;
 	}
 

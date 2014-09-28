@@ -18,7 +18,6 @@ public class IDAT extends Chunk {
 	@Override
 	public int doRead(InputStream input) throws IOException {
 		ReadResult<byte[]> readResult = this.readData(input);
-		this.readCrc(input);
 		return readResult.getLength();
 	}
 
