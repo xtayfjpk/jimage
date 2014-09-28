@@ -6,11 +6,22 @@ import java.io.InputStream;
 import com.xtayfjpk.jimage.utils.InputStreamUtils;
 import com.xtayfjpk.jimage.utils.ReadResult;
 
+/**
+ * 物理像素尺寸数据块
+ * @author zj
+ *
+ */
 public class PHYS extends Chunk {
 	public static final int UNIT_UNKNOWN = 0;
 	public static final int UNIT_METER = 1;
+	/** 每单位多少像素，x轴, 占4字节 **/
 	private int pixelPerUnitX = -1;
+	/** 每单位多少像素，y轴, 占4字节 **/
 	private int pixelPerUnitY = -1;
+	/**
+	 * 	UnkownUnit=0，表示只定义了像素显示的比例，未定义实际像素大小。
+	 *	枚举类型，Meter=1，表示定义单位为米, 占1字节
+	 */
 	private int pixelUnit = -1;
 	
 	
